@@ -55,13 +55,12 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px; /* 控制圖片與文字之間的間距 */
+            gap: 10px;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #000000; /* 將字體顏色改為黑色 */
+            color: #000000;
         }
 
-        /* 設定 Logo 圖片的大小 */
         .logo img {
             height: 40px; 
             width: auto;
@@ -126,18 +125,45 @@
         .section-title {
             text-align: center;
             font-size: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem; /* 稍微縮小與按鈕的距離 */
             color: #111827;
+        }
+
+        /* 課程分類篩選按鈕 */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background-color: transparent;
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, 
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 這會讓寬度足夠時自動排成 3 個一排 */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .course-card {
-            display: block; /* 讓 <a> 標籤變成區塊元素 */
+            display: block;
             background: var(--white);
             border-radius: 10px;
             overflow: hidden;
@@ -150,6 +176,11 @@
         .course-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* 動畫隱藏效果 */
+        .course-card.hide {
+            display: none;
         }
 
         .course-img {
@@ -227,10 +258,8 @@
 </head>
 <body>
 
-    <!-- 頂部導覽列 -->
     <header>
         <div class="nav-container">
-            <!-- Logo 區域：左邊圖片，右邊黑色文字 -->
             <a href="#" class="logo">
                 <img src="one_point_zero_one.PNG" alt="Logo">
                 <span>一點零一學院</span>
@@ -244,165 +273,144 @@
     </header>
 
     <main>
-        <!-- 主視覺區塊 -->
         <section id="home" class="hero">
             <h1>每天進步 1%，一年後強大 37 倍</h1>
             <p>讓一點零一學院成為您的 0.01 </p>
             <a href="#courses" class="btn-primary">立即開始探索</a>
         </section>
 
-        <!-- 課程列表區塊 (9 個課程) -->
         <section id="courses" class="courses">
             <h2 class="section-title">熱門精選影片</h2>
+            
+            <div class="category-filter">
+                <button class="filter-btn active" data-filter="all">全部課程</button>
+                <button class="filter-btn" data-filter="islam">伊斯蘭</button>
+                <button class="filter-btn" data-filter="programming">程式</button>
+                <button class="filter-btn" data-filter="math">數學</button>
+            </div>
+
             <div class="course-grid">
                 
-                <!-- 課程 1 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">伊斯蘭</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">伊斯蘭</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">伊斯蘭</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">伊斯蘭</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">伊斯蘭</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
                     </div>
                 </a>
 
-                <!-- 課程 2 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">程式</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">程式</div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">程式</div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">程式</div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">程式</div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span>
+                        <h3 class="course-title">籌備中</h3>
+                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
                     </div>
                 </a>
 
-                <!-- 課程 3 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">數學</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
-
-                <!-- 課程 4 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">數學</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
-
-                <!-- 課程 5 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">數學</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
-
-                <!-- 課程 6 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">數學</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
-
-                <!-- 課程 7 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">籌備中</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">籌備中</span>
+                        <span class="course-category">數學</span>
                         <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 8 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 9 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 10 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 11 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 12 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 13 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 14 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
-                    </div>
-                </a>
-
-                <!-- 課程 15 -->
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">籌備中</div>
-                    <div class="course-content">
-                        <span class="course-category">籌備中</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">籌備中</p>
+                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
 
@@ -410,24 +418,48 @@
         </section>
     </main>
 
-    <!-- 頁尾 -->
     <footer id="about">
         <div class="footer-content">
             <h3>一點零一學院 1.01 Academy</h3>
             <p>「每天學習一點點，成就未來的自己。」</p>
-            <!-- 加入 Email 聯絡方式 -->
             <p>聯絡我們：<a class="footer-email">1.01academyforyou@gmail.com</a></p>
             <p style="font-size: 0.8rem; margin-top: 1rem;">&copy; 2026 一點零一學院. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- 簡單的互動腳本：平滑滾動 -->
     <script>
+        // 平滑滾動
         document.querySelectorAll('nav a[href^="#"], .hero a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
+                });
+            });
+        });
+
+        // 課程篩選邏輯
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按鈕的 active 狀態
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // 為點擊的按鈕加上 active 狀態
+                btn.classList.add('active');
+
+                // 取得目標分類
+                const filterValue = btn.getAttribute('data-filter');
+
+                // 根據分類顯示/隱藏卡片
+                courseCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all' || filterValue === cardCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             });
         });
