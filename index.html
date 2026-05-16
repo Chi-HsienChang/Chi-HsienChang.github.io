@@ -242,7 +242,8 @@
             color: var(--text-color);
             margin-bottom: 1rem;
             border-bottom: 2px solid #d1d5db;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
+            line-height: 1.5;
         }
 
         .activity-list {
@@ -480,7 +481,10 @@
                 </div>
 
                 <div class="calendar-right">
-                    <h3 class="activity-header">📅 選擇日期：<span id="selectedDateDisplay"></span></h3>
+                    <h3 class="activity-header">
+                        <span style="display: block; margin-bottom: 8px;">📅 選擇日期：<span id="selectedDateDisplay"></span></span>
+                        <span id="hijriDateDisplay" style="display: block; color: var(--primary-color);"></span>
+                    </h3>
                     
                     <div id="activityList" class="activity-list">
                         </div>
@@ -698,14 +702,12 @@
                         <span class="course-category">程式</span><h3 class="course-title">Python × Rust 高效開發實戰<br> 效能 × 安全一次到位</h3><p class="course-desc">hahow 課程</p>
                     </div>
                 </a>
-
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
                     <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
-                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
                     </div>
                 </a>
-
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
                     <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
@@ -832,13 +834,6 @@
                 time: "13:00 - 14:00", 
                 title: "主麻聚禮 (Jumu'ah) 線上直播" 
             },
-            // { 
-            //     type: 'period', 
-            //     startDate: '2026-5-25', 
-            //     endDate: '2026-5-27', 
-            //     time: "全天", 
-            //     title: "1.01 學院程式開發黑客松" 
-            // },
             { 
                 type: 'single', 
                 date: '2026-5-20', 
@@ -884,6 +879,7 @@
         const prevMonthBtn = document.getElementById('prevMonth');
         const nextMonthBtn = document.getElementById('nextMonth');
         const selectedDateDisplay = document.getElementById('selectedDateDisplay');
+        const hijriDateDisplay = document.getElementById('hijriDateDisplay');
         const activityList = document.getElementById('activityList');
 
         let currentDate = new Date();
@@ -898,16 +894,14 @@
             const firstDayOfMonth = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             
-            monthYearText.textContent = `${year}年 ${month + 1}月`;
+            monthYearText.textContent = `${year} 年 ${month + 1} 月`;
 
-            // 填充前面的空白
             for (let i = 0; i < firstDayOfMonth; i++) {
                 const emptyCell = document.createElement('div');
                 emptyCell.classList.add('date-cell', 'empty');
                 calendarDates.appendChild(emptyCell);
             }
 
-            // 填充日期
             for (let i = 1; i <= daysInMonth; i++) {
                 const dateCell = document.createElement('div');
                 dateCell.classList.add('date-cell');
@@ -932,8 +926,28 @@
 
         function showActivities(dateString, activities) {
             selectedDateDisplay.textContent = dateString.replace(/-/g, '/');
-            activityList.innerHTML = '';
+            
+            // 計算並顯示伊斯蘭曆 (Hijri Calendar)
+            const [y, m, d] = dateString.split('-');
+            const targetDate = new Date(y, m - 1, d);
+            
+            // 使用 Intl API 轉換為伊斯蘭曆
+            const hijriFormatter = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
+                year: 'numeric', month: 'numeric', day: 'numeric'
+            });
+            const parts = hijriFormatter.formatToParts(targetDate);
+            let hy, hm, hd;
+            parts.forEach(part => {
+                // 將年份中的非數字(例如 AH)濾除
+                if (part.type === 'year') hy = part.value.replace(/[^0-9]/g, '');
+                if (part.type === 'month') hm = part.value;
+                if (part.type === 'day') hd = part.value;
+            });
+            
+            // 將伊斯蘭曆顯示在第二行
+            hijriDateDisplay.textContent = `伊斯蘭曆 ${hy}/${hm}/${hd}`;
 
+            activityList.innerHTML = '';
             if (activities && activities.length > 0) {
                 activities.forEach(act => {
                     const actHtml = `
