@@ -13,6 +13,7 @@
             --text-color: #333333;
             --light-bg: #f3f4f6;
             --white: #ffffff;
+            --border-color: #e5e7eb;
         }
 
         * {
@@ -77,7 +78,7 @@
             color: var(--primary-color);
         }
 
-        /* 主視覺區塊 (Hero Section) */
+        /* 主視覺區塊 */
         .hero {
             margin-top: 70px;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -107,6 +108,8 @@
             border-radius: 30px;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+            border: none;
+            cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -115,21 +118,204 @@
             box-shadow: 0 6px 8px rgba(245, 158, 11, 0.4);
         }
 
+        /* 日曆區塊樣式 */
+        .calendar-section {
+            max-width: 1200px;
+            margin: 4rem auto 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .calendar-wrapper {
+            display: flex;
+            gap: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        .calendar-left {
+            flex: 1.5;
+        }
+
+        .calendar-right {
+            flex: 1;
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-header button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: color 0.2s;
+        }
+
+        .calendar-header button:hover {
+            color: var(--secondary-color);
+        }
+
+        .calendar-header h3 {
+            font-size: 1.2rem;
+            color: #111827;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .date-cell {
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .date-cell:hover:not(.empty) {
+            background: #e0f2fe;
+        }
+
+        .date-cell.empty {
+            cursor: default;
+        }
+
+        .date-cell.today {
+            background: var(--accent-color);
+            color: var(--white);
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.4);
+        }
+
+        .date-cell.today:hover:not(.empty) {
+            background: #d97706;
+        }
+
+        .date-cell.active:not(.today) {
+            border: 2px solid var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .date-cell.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        
+        .date-cell.today.has-event::after {
+            background-color: var(--white);
+        }
+
+        .activity-header {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #d1d5db;
+            padding-bottom: 0.5rem;
+        }
+
+        .activity-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 350px;
+        }
+
+        /* 活動連結樣式 */
+        .activity-link {
+            display: block;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .activity-link:hover {
+            transform: translateX(5px);
+        }
+
+        .activity-item {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s, background-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .activity-link:hover .activity-item {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: #f8fafc;
+            border-left-color: var(--accent-color);
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-title {
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .no-activity {
+            color: #6b7280;
+            text-align: center;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-wrapper {
+                flex-direction: column;
+            }
+        }
+
         /* 課程區塊 */
         .courses {
             max-width: 1200px;
-            margin: 5rem auto;
+            margin: 2rem auto 5rem auto; 
             padding: 0 2rem;
         }
 
         .section-title {
             text-align: center;
             font-size: 2rem;
-            margin-bottom: 2rem; /* 稍微縮小與按鈕的距離 */
+            margin-bottom: 2rem;
             color: #111827;
         }
 
-        /* 課程分類篩選按鈕 */
         .category-filter {
             display: flex;
             justify-content: center;
@@ -139,13 +325,13 @@
         }
 
         .filter-btn {
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 1.2rem;
             border: 2px solid var(--primary-color);
             background-color: transparent;
             color: var(--primary-color);
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             transition: all 0.3s ease;
         }
@@ -158,7 +344,7 @@
 
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
@@ -169,18 +355,13 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border-color);
             cursor: pointer;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* 動畫隱藏效果 */
-        .course-card.hide {
-            display: none;
         }
 
         .course-img {
@@ -191,8 +372,10 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         }
 
         .course-content {
@@ -245,7 +428,6 @@
             text-decoration: underline;
         }
 
-        /* 響應式設計 */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -266,6 +448,7 @@
             </a>
             <nav class="nav-links">
                 <a href="#home">首頁</a>
+                <a href="#calendar">行事曆</a>
                 <a href="#courses">探索課程</a>
                 <a href="#about">聯絡我們</a>
             </nav>
@@ -279,138 +462,328 @@
             <a href="#courses" class="btn-primary">立即開始探索</a>
         </section>
 
+        <section id="calendar" class="calendar-section">
+            <h2 class="section-title">本月行事曆與活動</h2>
+            <div class="calendar-wrapper">
+                
+                <div class="calendar-left">
+                    <div class="calendar-header">
+                        <button id="prevMonth">&lt;</button>
+                        <h3 id="monthYear"></h3>
+                        <button id="nextMonth">&gt;</button>
+                    </div>
+                    <div class="calendar-days">
+                        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+                    </div>
+                    <div class="calendar-dates" id="calendarDates">
+                        </div>
+                </div>
+
+                <div class="calendar-right">
+                    <h3 class="activity-header">📅 選擇日期：<span id="selectedDateDisplay"></span></h3>
+                    
+                    <div id="activityList" class="activity-list">
+                        </div>
+                </div>
+            </div>
+        </section>
+
         <section id="courses" class="courses">
             <h2 class="section-title">熱門精選影片</h2>
             
             <div class="category-filter">
                 <button class="filter-btn active" data-filter="all">全部課程</button>
-                <button class="filter-btn" data-filter="islam">伊斯蘭</button>
+                <button class="filter-btn" data-filter="prayer">禮拜</button>
+                <button class="filter-btn" data-filter="quran">古蘭經</button>
+                <button class="filter-btn" data-filter="hadith">聖訓</button>
+                <button class="filter-btn" data-filter="hajj">朝覲</button>
+                <button class="filter-btn" data-filter="culture">伊斯蘭文化</button>
+                <button class="filter-btn" data-filter="faith">信仰充電</button>
                 <button class="filter-btn" data-filter="programming">程式</button>
                 <button class="filter-btn" data-filter="math">數學</button>
+                <button class="filter-btn" data-filter="language">語言</button>
             </div>
 
             <div class="course-grid">
                 
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">伊斯蘭</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="prayer">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">禮拜</div>
                     <div class="course-content">
-                        <span class="course-category">伊斯蘭</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                        <span class="course-category">禮拜</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的禮拜相關課程。</p>
                     </div>
                 </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
-                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">伊斯蘭</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="prayer">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">禮拜</div>
                     <div class="course-content">
-                        <span class="course-category">伊斯蘭</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                        <span class="course-category">禮拜</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的禮拜相關課程。</p>
                     </div>
                 </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
-                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">伊斯蘭</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="prayer">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">禮拜</div>
                     <div class="course-content">
-                        <span class="course-category">伊斯蘭</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                        <span class="course-category">禮拜</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的禮拜相關課程。</p>
                     </div>
                 </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">伊斯蘭</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="prayer">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">禮拜</div>
                     <div class="course-content">
-                        <span class="course-category">伊斯蘭</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                        <span class="course-category">禮拜</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的禮拜相關課程。</p>
                     </div>
                 </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="islam">
-                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="prayer">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fecaca, #f87171);">禮拜</div>
                     <div class="course-content">
-                        <span class="course-category">伊斯蘭</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的伊斯蘭相關課程。</p>
+                        <span class="course-category">禮拜</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的禮拜相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="quran">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">古蘭經</div>
+                    <div class="course-content">
+                        <span class="course-category">古蘭經</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的古蘭經相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="quran">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">古蘭經</div>
+                    <div class="course-content">
+                        <span class="course-category">古蘭經</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的古蘭經相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="quran">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">古蘭經</div>
+                    <div class="course-content">
+                        <span class="course-category">古蘭經</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的古蘭經相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="quran">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">古蘭經</div>
+                    <div class="course-content">
+                        <span class="course-category">古蘭經</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的古蘭經相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="quran">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bbf7d0, #4ade80);">古蘭經</div>
+                    <div class="course-content">
+                        <span class="course-category">古蘭經</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的古蘭經相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hadith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">聖訓</div>
+                    <div class="course-content">
+                        <span class="course-category">聖訓</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的聖訓相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hadith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">聖訓</div>
+                    <div class="course-content">
+                        <span class="course-category">聖訓</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的聖訓相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hadith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">聖訓</div>
+                    <div class="course-content">
+                        <span class="course-category">聖訓</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的聖訓相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hadith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">聖訓</div>
+                    <div class="course-content">
+                        <span class="course-category">聖訓</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的聖訓相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hadith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #bfdbfe, #60a5fa);">聖訓</div>
+                    <div class="course-content">
+                        <span class="course-category">聖訓</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的聖訓相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hajj">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">朝覲</div>
+                    <div class="course-content">
+                        <span class="course-category">朝覲</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的朝覲相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hajj">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">朝覲</div>
+                    <div class="course-content">
+                        <span class="course-category">朝覲</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的朝覲相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hajj">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">朝覲</div>
+                    <div class="course-content">
+                        <span class="course-category">朝覲</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的朝覲相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hajj">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">朝覲</div>
+                    <div class="course-content">
+                        <span class="course-category">朝覲</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的朝覲相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="hajj">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fde68a, #fbbf24);">朝覲</div>
+                    <div class="course-content">
+                        <span class="course-category">朝覲</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的朝覲相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="culture">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭文化</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭文化</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的伊斯蘭文化課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="culture">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭文化</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭文化</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的伊斯蘭文化課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="culture">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭文化</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭文化</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的伊斯蘭文化課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="culture">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭文化</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭文化</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的伊斯蘭文化課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="culture">
+                    <div class="course-img" style="background: linear-gradient(45deg, #e9d5ff, #c084fc);">伊斯蘭文化</div>
+                    <div class="course-content">
+                        <span class="course-category">伊斯蘭文化</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的伊斯蘭文化課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="faith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fed7aa, #fb923c);">信仰充電</div>
+                    <div class="course-content">
+                        <span class="course-category">信仰充電</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的信仰充電相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="faith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fed7aa, #fb923c);">信仰充電</div>
+                    <div class="course-content">
+                        <span class="course-category">信仰充電</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的信仰充電相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="faith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fed7aa, #fb923c);">信仰充電</div>
+                    <div class="course-content">
+                        <span class="course-category">信仰充電</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的信仰充電相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="faith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fed7aa, #fb923c);">信仰充電</div>
+                    <div class="course-content">
+                        <span class="course-category">信仰充電</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的信仰充電相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="faith">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fed7aa, #fb923c);">信仰充電</div>
+                    <div class="course-content">
+                        <span class="course-category">信仰充電</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的信仰充電相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://hahow.in/cr/rust-python" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background-image: url('rust.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span><h3 class="course-title">Python × Rust 高效開發實戰<br> 效能 × 安全一次到位</h3><p class="course-desc">hahow 課程</p>
                     </div>
                 </a>
 
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
                     <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
-                        <span class="course-category">程式</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
-                    </div>
-                </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
-                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">程式</div>
-                    <div class="course-content">
-                        <span class="course-category">程式</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
-                    </div>
-                </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">程式</div>
-                    <div class="course-content">
-                        <span class="course-category">程式</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
-                    </div>
-                </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">程式</div>
-                    <div class="course-content">
-                        <span class="course-category">程式</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
-                    </div>
-                </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
-                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">程式</div>
-                    <div class="course-content">
-                        <span class="course-category">程式</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
                     </div>
                 </a>
 
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">數學</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
-                        <span class="course-category">數學</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
                     </div>
                 </a>
-                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">數學</div>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
                     <div class="course-content">
-                        <span class="course-category">數學</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="programming">
+                    <div class="course-img" style="background: linear-gradient(45deg, #a7f3d0, #34d399);">程式</div>
+                    <div class="course-content">
+                        <span class="course-category">程式</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的程式語言課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://hahow.in/cr/python-statistics" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background-image: url('stat.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="course-content">
+                        <span class="course-category">數學</span><h3 class="course-title">Python × 統計完整攻略：從機率基礎到真實資料分析的全面掌握</h3><p class="course-desc"> hahow 課程</p>
                     </div>
                 </a>
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
                     <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">數學</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                        <span class="course-category">數學</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
-                    <div class="course-img" style="background: linear-gradient(45deg, #99f6e4, #2dd4bf);">數學</div>
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">數學</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                        <span class="course-category">數學</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的數學相關課程。</p>
                     </div>
                 </a>
                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
-                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">數學</div>
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">數學</div>
                     <div class="course-content">
-                        <span class="course-category">數學</span>
-                        <h3 class="course-title">籌備中</h3>
-                        <p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                        <span class="course-category">數學</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="math">
+                    <div class="course-img" style="background: linear-gradient(45deg, #c7d2fe, #818cf8);">數學</div>
+                    <div class="course-content">
+                        <span class="course-category">數學</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的數學相關課程。</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="language">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">語言</div>
+                    <div class="course-content">
+                        <span class="course-category">語言</span><h3 class="course-title">課程籌備中 (1/5)</h3><p class="course-desc">敬請期待即將推出的語言相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="language">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">語言</div>
+                    <div class="course-content">
+                        <span class="course-category">語言</span><h3 class="course-title">課程籌備中 (2/5)</h3><p class="course-desc">敬請期待即將推出的語言相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="language">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">語言</div>
+                    <div class="course-content">
+                        <span class="course-category">語言</span><h3 class="course-title">課程籌備中 (3/5)</h3><p class="course-desc">敬請期待即將推出的語言相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="language">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">語言</div>
+                    <div class="course-content">
+                        <span class="course-category">語言</span><h3 class="course-title">課程籌備中 (4/5)</h3><p class="course-desc">敬請期待即將推出的語言相關課程。</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@1.01academy" target="_blank" class="course-card" data-category="language">
+                    <div class="course-img" style="background: linear-gradient(45deg, #fbcfe8, #f472b6);">語言</div>
+                    <div class="course-content">
+                        <span class="course-category">語言</span><h3 class="course-title">課程籌備中 (5/5)</h3><p class="course-desc">敬請期待即將推出的語言相關課程。</p>
                     </div>
                 </a>
 
@@ -428,41 +801,177 @@
     </footer>
 
     <script>
-        // 平滑滾動
+        // 平滑滾動與課程篩選
         document.querySelectorAll('nav a[href^="#"], .hero a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
 
-        // 課程篩選邏輯
         const filterBtns = document.querySelectorAll('.filter-btn');
         const courseCards = document.querySelectorAll('.course-card');
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // 移除所有按鈕的 active 狀態
                 filterBtns.forEach(b => b.classList.remove('active'));
-                // 為點擊的按鈕加上 active 狀態
                 btn.classList.add('active');
-
-                // 取得目標分類
                 const filterValue = btn.getAttribute('data-filter');
-
-                // 根據分類顯示/隱藏卡片
                 courseCards.forEach(card => {
                     const cardCategory = card.getAttribute('data-category');
-                    if (filterValue === 'all' || filterValue === cardCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = (filterValue === 'all' || filterValue === cardCategory) ? 'block' : 'none';
                 });
             });
         });
+
+        // ======= 開發者後端活動資料設定區塊 (Rule Engine) =======
+        const eventRules = [
+            { 
+                type: 'weekly', 
+                dayOfWeek: 5, // 5 代表週五
+                time: "13:00 - 14:00", 
+                title: "主麻聚禮 (Jumu'ah) 線上直播" 
+            },
+            // { 
+            //     type: 'period', 
+            //     startDate: '2026-5-25', 
+            //     endDate: '2026-5-27', 
+            //     time: "全天", 
+            //     title: "1.01 學院程式開發黑客松" 
+            // },
+            { 
+                type: 'single', 
+                date: '2026-5-20', 
+                time: "20:00 - 21:00", 
+                title: "伊斯蘭文化線上講座 (test)" 
+            }
+        ];
+
+        function getEventsForDate(year, month, day) {
+            const targetDate = new Date(year, month, day);
+            targetDate.setHours(0,0,0,0);
+            
+            const dateString = `${year}-${month + 1}-${day}`;
+            const dayOfWeek = targetDate.getDay();
+            
+            let events = [];
+            
+            eventRules.forEach(rule => {
+                if (rule.type === 'single') {
+                    if (rule.date === dateString) events.push(rule);
+                } 
+                else if (rule.type === 'period') {
+                    const sParts = rule.startDate.split('-');
+                    const sDate = new Date(sParts[0], sParts[1] - 1, sParts[2]);
+                    sDate.setHours(0,0,0,0);
+                    
+                    const eParts = rule.endDate.split('-');
+                    const eDate = new Date(eParts[0], eParts[1] - 1, eParts[2]);
+                    eDate.setHours(0,0,0,0);
+                    
+                    if (targetDate >= sDate && targetDate <= eDate) events.push(rule);
+                } 
+                else if (rule.type === 'weekly') {
+                    if (rule.dayOfWeek === dayOfWeek) events.push(rule);
+                }
+            });
+            return events;
+        }
+        // ==========================================
+
+        const monthYearText = document.getElementById('monthYear');
+        const calendarDates = document.getElementById('calendarDates');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const selectedDateDisplay = document.getElementById('selectedDateDisplay');
+        const activityList = document.getElementById('activityList');
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        
+        const todayDate = new Date();
+        const todayString = `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
+
+        function renderCalendar(year, month) {
+            calendarDates.innerHTML = '';
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            monthYearText.textContent = `${year}年 ${month + 1}月`;
+
+            // 填充前面的空白
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.classList.add('date-cell', 'empty');
+                calendarDates.appendChild(emptyCell);
+            }
+
+            // 填充日期
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dateCell = document.createElement('div');
+                dateCell.classList.add('date-cell');
+                dateCell.textContent = i;
+                
+                const dateString = `${year}-${month + 1}-${i}`;
+
+                if (dateString === todayString) dateCell.classList.add('today');
+
+                const dayEvents = getEventsForDate(year, month, i);
+                if (dayEvents.length > 0) dateCell.classList.add('has-event');
+
+                dateCell.addEventListener('click', () => {
+                    document.querySelectorAll('.date-cell').forEach(cell => cell.classList.remove('active'));
+                    dateCell.classList.add('active');
+                    showActivities(dateString, dayEvents);
+                });
+
+                calendarDates.appendChild(dateCell);
+            }
+        }
+
+        function showActivities(dateString, activities) {
+            selectedDateDisplay.textContent = dateString.replace(/-/g, '/');
+            activityList.innerHTML = '';
+
+            if (activities && activities.length > 0) {
+                activities.forEach(act => {
+                    const actHtml = `
+                        <a href="https://www.youtube.com/@1.01academy" target="_blank" class="activity-link">
+                            <div class="activity-item">
+                                <div class="activity-time">⏰ ${act.time}</div>
+                                <div class="activity-title">${act.title} ↗</div>
+                            </div>
+                        </a>
+                    `;
+                    activityList.insertAdjacentHTML('beforeend', actHtml);
+                });
+            } else {
+                activityList.innerHTML = '<div class="no-activity">這天沒有安排活動，好好休息吧！</div>';
+            }
+        }
+
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            renderCalendar(currentYear, currentMonth);
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            renderCalendar(currentYear, currentMonth);
+        });
+
+        // 初始化
+        renderCalendar(currentYear, currentMonth);
+        const todayEvents = getEventsForDate(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+        showActivities(todayString, todayEvents);
+
+        setTimeout(() => {
+            const todayElement = document.querySelector('.date-cell.today');
+            if(todayElement) todayElement.classList.add('active');
+        }, 100);
     </script>
 </body>
 </html>
