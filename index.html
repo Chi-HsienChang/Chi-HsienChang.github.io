@@ -923,47 +923,156 @@
                 calendarDates.appendChild(dateCell);
             }
         }
-
+        
         function showActivities(dateString, activities) {
-            selectedDateDisplay.textContent = dateString.replace(/-/g, '/');
-            
-            // 計算並顯示伊斯蘭曆 (Hijri Calendar)
-            const [y, m, d] = dateString.split('-');
-            const targetDate = new Date(y, m - 1, d);
-            
-            // 使用 Intl API 轉換為伊斯蘭曆
-            const hijriFormatter = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
-                year: 'numeric', month: 'numeric', day: 'numeric'
-            });
-            const parts = hijriFormatter.formatToParts(targetDate);
-            let hy, hm, hd;
+
+            selectedDateDisplay.textContent =
+                dateString.replace(/-/g, '/');
+
+            const [y, m, d] =
+                dateString.split('-');
+
+            const targetDate =
+                new Date(y, m - 1, d);
+
+            // 使用 Umm al-Qura 伊斯蘭曆
+            const hijriFormatter =
+                new Intl.DateTimeFormat(
+                    'en-US-u-ca-islamic-umalqura',
+                    {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }
+                );
+
+            const parts =
+                hijriFormatter.formatToParts(targetDate);
+
+            let hy = '';
+            let hm = '';
+            let hd = '';
+
             parts.forEach(part => {
-                // 將年份中的非數字(例如 AH)濾除
-                if (part.type === 'year') hy = part.value.replace(/[^0-9]/g, '');
-                if (part.type === 'month') hm = part.value;
-                if (part.type === 'day') hd = part.value;
+
+                if (part.type === 'year') {
+
+                    hy =
+                        part.value.replace(
+                            /[^0-9]/g,
+                            ''
+                        );
+                }
+
+                if (part.type === 'month') {
+
+                    hm = part.value;
+                }
+
+                if (part.type === 'day') {
+
+                    hd = part.value;
+                }
             });
-            
-            // 將伊斯蘭曆顯示在第二行
-            hijriDateDisplay.textContent = `伊斯蘭曆 ${hy}/${hm}/${hd}`;
+
+            const hijriMonths = {
+
+                "Muharram": 1,
+                "Safar": 2,
+                "Rabiʻ I": 3,
+                "Rabiʻ II": 4,
+                "Jumada I": 5,
+                "Jumada II": 6,
+                "Rajab": 7,
+                "Shaʻban": 8,
+                "Ramadan": 9,
+                "Shawwal": 10,
+                "Dhuʻl-Qiʻdah": 11,
+                "Dhuʻl-Hijjah": 12
+            };
+
+            const hmNumber =
+                hijriMonths[hm] || hm;
+
+            hijriDateDisplay.textContent =
+                `伊斯蘭曆 ${hy}/${hmNumber}/${hd}`;
 
             activityList.innerHTML = '';
-            if (activities && activities.length > 0) {
+
+            if (activities.length > 0) {
+
                 activities.forEach(act => {
-                    const actHtml = `
-                        <a href="https://www.youtube.com/@1.01academy" target="_blank" class="activity-link">
-                            <div class="activity-item">
-                                <div class="activity-time">⏰ ${act.time}</div>
-                                <div class="activity-title">${act.title} ↗</div>
+
+                    const html = `
+                        <div class="activity-item">
+
+                            <div class="activity-time">
+                                ⏰ ${act.time}
                             </div>
-                        </a>
+
+                            <div class="activity-title">
+                                ${act.title}
+                            </div>
+
+                        </div>
                     `;
-                    activityList.insertAdjacentHTML('beforeend', actHtml);
+
+                    activityList.insertAdjacentHTML(
+                        'beforeend',
+                        html
+                    );
                 });
+
             } else {
-                activityList.innerHTML = '<div class="no-activity">這天沒有安排活動，好好休息吧！</div>';
+
+                activityList.innerHTML = `
+                    <div class="no-activity">
+                        這天沒有安排活動
+                    </div>
+                `;
             }
         }
+
+        // function showActivities(dateString, activities) {
+        //     selectedDateDisplay.textContent = dateString.replace(/-/g, '/');
+            
+        //     // 計算並顯示伊斯蘭曆 (Hijri Calendar)
+        //     const [y, m, d] = dateString.split('-');
+        //     const targetDate = new Date(y, m - 1, d);
+            
+        //     // 使用 Intl API 轉換為伊斯蘭曆
+        //     const hijriFormatter = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
+        //         year: 'numeric', month: 'numeric', day: 'numeric'
+        //     });
+        //     const parts = hijriFormatter.formatToParts(targetDate);
+        //     let hy, hm, hd;
+        //     parts.forEach(part => {
+        //         // 將年份中的非數字(例如 AH)濾除
+        //         if (part.type === 'year') hy = part.value.replace(/[^0-9]/g, '');
+        //         if (part.type === 'month') hm = part.value;
+        //         if (part.type === 'day') hd = part.value;
+        //     });
+            
+        //     // 將伊斯蘭曆顯示在第二行
+        //     hijriDateDisplay.textContent = `伊斯蘭曆 ${hy}/${hm}/${hd}`;
+
+        //     activityList.innerHTML = '';
+        //     if (activities && activities.length > 0) {
+        //         activities.forEach(act => {
+        //             const actHtml = `
+        //                 <a href="https://www.youtube.com/@1.01academy" target="_blank" class="activity-link">
+        //                     <div class="activity-item">
+        //                         <div class="activity-time">⏰ ${act.time}</div>
+        //                         <div class="activity-title">${act.title} ↗</div>
+        //                     </div>
+        //                 </a>
+        //             `;
+        //             activityList.insertAdjacentHTML('beforeend', actHtml);
+        //         });
+        //     } else {
+        //         activityList.innerHTML = '<div class="no-activity">這天沒有安排活動，好好休息吧！</div>';
+        //     }
+        // }
 
         prevMonthBtn.addEventListener('click', () => {
             currentMonth--;
